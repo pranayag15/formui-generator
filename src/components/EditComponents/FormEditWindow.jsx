@@ -1,14 +1,17 @@
 import React, { Component, version } from "react";
 import { Form, Input, Button, Collapse } from "antd";
 import Modal from "./EditModal";
-import InputFieldDynamicForm from "./AddFieldFroms/AddInput";
+import SelectFieldDynamicForm from "./AddFieldFroms/AddSelect";
+import InputFieldForm from "./AddFieldFroms/AddInput"
 
 const { Panel } = Collapse;
 
 class FormEditWindow extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      input: []
+    };
   }
 
   onFinish = (values) => {
@@ -58,18 +61,19 @@ class FormEditWindow extends Component {
             <center>
               <Modal
                 buttonValue="Add Text Field"
-                form={InputFieldDynamicForm}
+                form={InputFieldForm}
                 modalHeading="Input Add Modal"
               />
             </center>
           </Panel>
           <Panel header="SELECT" key="2">
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Error
-              vitae a iure vel distinctio. Cumque voluptas cupiditate nam
-              quisquam! At, ducimus ad necessitatibus reprehenderit repellendus
-              saepe eaque doloremque atque alias.
-            </p>
+            <center>
+              <Modal
+                buttonValue="Add Select options"
+                form={SelectFieldDynamicForm}
+                modalHeading="Select Options Modal"
+              />
+            </center>
           </Panel>
           <Panel header="RADIO" key="3">
             <p>

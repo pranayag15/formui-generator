@@ -4,7 +4,7 @@ import { Form, Input, Button, Checkbox, message } from "antd";
 import { UserOutlined, MailOutlined, MessageOutlined } from "@ant-design/icons";
 import Modal from "./EditModal"
 import Addfieldform from "./Renderedfrom";
-import Dynamicform from "./AddFieldFroms/AddInput"
+import Dynamicform from "./AddFieldFroms/AddSelect"
 import "antd/dist/antd.css";
 // import "../../styles/contact.css"
 

@@ -14,10 +14,10 @@ import {
   Row,
   Col,
 } from "antd";
-import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import { CloseOutlined, CheckOutlined } from "@ant-design/icons";
 import "antd/dist/antd.css";
 import "./addForm.css";
-
+const { Option } = Select;
 const tailLayout = {
   wrapperCol: {
     offset: 19,
@@ -34,6 +34,7 @@ class ContactForm extends Component {
   }
 
   onFinish = (values) => {
+    if(values.input.isrequired = values.input.isrequired ? values.input.isrequired : true)
     console.log("form data", values);
   };
 
@@ -43,76 +44,83 @@ class ContactForm extends Component {
 
   render() {
     return (
-      <Form onFinish={this.onFinish} className="my-form">
-        <Form.List name="formFields">
-          {(fields, { add, remove }) => {
-            return (
-              <div>
-                {fields.map((field, index) => (
-                  <Row key={field.key} gutter={16}>
-                    <Col span={11}>
-                      <Form.Item
-                        name={[field.name, "label"]}
-                        fieldKey={[field.fieldKey, "value"]}
-                        rules={[
-                          {
-                            required: true,
-                            whitespace: true,
-                            message:
-                              "Please input field label/placeholder or delete this field.",
-                          },
-                        ]}
-                      >
-                        <Input placeholder="Label" />
-                      </Form.Item>
-                    </Col>
-                    <Col span={11}>
-                      <Form.Item
-                        name={[field.name, "value"]}
-                        fieldKey={[field.fieldKey, "value"]}
-                        rules={[
-                          {
-                            required: true,
-                            whitespace: true,
-                            message:
-                              "Please input field value or delete this field.",
-                          },
-                        ]}
-                      >
-                        <Input placeholder="Value" />
-                      </Form.Item>
-                    </Col>
-                    <Col flex="none">
-                      <MinusCircleOutlined
-                        className="dynamic-delete-button"
-                        onClick={() => {
-                          remove(field.name);
-                        }}
-                      />
-                    </Col>
-                  </Row>
-                ))}
-                <Form.Item>
-                  <Button
-                    type="dashed"
-                    onClick={() => {
-                      add();
-                    }}
-                    style={{ width: "100%" }}
-                  >
-                    <PlusOutlined /> Add field
-                  </Button>
-                </Form.Item>
-              </div>
-            );
-          }}
-        </Form.List>
+      <Form 
+        //initialValues={{}}
+        layout="vertical" 
+        onFinish={this.onFinish} 
+        className="my-form"
+      >
+        <Row gutter={16}>
+          <Col span={12}>
+            <Form.Item
+              name={["input", "username"]}
+              label="Field Name"
+              rules={[
+                {
+                  required: true,
+                  message: "Enter field name",
+                },
+              ]}
+            >
+              <Input placeholder="Field name is the name by which you get field data." />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item
+              name={["input", "label"]}
+              label="Label"
+              rules={[
+                {
+                  required: true,
+                  message: "Enter label name",
+                },
+              ]}
+            >
+              <Input placeholder="Label is what you see just above this input field." />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item name={["input", "placeholder"]} label="Placeholder">
+              <Input placeholder="Placeholder is this text that you are reading." />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item
+              name={["input", "select"]}
+              label="Field type"
+              rules={[
+                {
+                  required: true,
+                  message: "Please select field type",
+                },
+              ]}
+            >
+              <Select placeholder="Select field type to make validation easy.">
+                <Option value="string">String</Option>
+                <Option value="email">Email</Option>
+                <Option value="number">Number</Option>
+                <Option value="password">Password</Option>
+                <Option value="textarea">Textarea</Option>
+                <Option value="search">Search</Option>
+              </Select>
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item name={["input", "isrequired"]} label="Is required">
+              <Switch
+                defaultChecked
+                checkedChildren={<CheckOutlined />}
+                unCheckedChildren={<CloseOutlined />}
+              />
+            </Form.Item>
+          </Col>
+        </Row>
         <Form.Item {...tailLayout}>
           <Button key="back" onClick={this.props.onCancel}>
-            Return
+            Cancel
           </Button>
           <Button style={{ marginLeft: "5%" }} htmlType="submit" type="primary">
-            Submit
+            Add
           </Button>
         </Form.Item>
       </Form>
